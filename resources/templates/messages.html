@@ -1,0 +1,55 @@
+<html>
+
+<head>
+    <style>
+        body {background-color: #ffcc66;}
+        body {font-family: "Arial", Arial, sans-serif;}
+        h1 {font-family: "Arial", Arial, sans-serif;}
+        h1 {font-style: bold,;}
+        h1 {font-size: 24px;}
+        ol {font-style: normal;}
+        li {font-style: italic;}
+        button {
+    </style>
+</head>
+
+<body>
+
+<h1>
+{{name}}'s Blog Messages:
+</h1>
+
+<br>
+•Message•
+<form action="/create-message" method="post">
+    <input type="text" placeholder="Post new blog..." name="createMessage"/><br>
+    <button type="submit">Add Post</button>
+</form>
+
+<ol>
+    {{#messages}}
+    <li>{{addPost}}</li>
+    {{/messages}}
+</ol>
+
+•Amend•
+<form action="/amend-message" method="post">
+    <input type="text" placeholder="Message #..." name="amendPost"/><br>
+    <input type="text" placeholder="Make amendments here" name="createMessage"/><br>
+    <button type="submit">Make Amendment</button>
+</form>
+
+•Delete•
+<form action="/delete-message" method="post">
+    <input type="text" placeholder="Message #..." name="deleteMessage"/><br>
+    <button type="submit">Delete Post</button>
+</form>
+
+<br><br><br><br><br><br><br>
+
+<form action="/logout" method="post">
+    <button type="submit">Logout</button>
+</form>
+
+</body>
+</html>
