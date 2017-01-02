@@ -38,9 +38,11 @@ public class Main {
                         usersMap.put(name, user);
                     }
                     if (user.password.equals(password)) {
-                        System.out.println();
+                        System.out.println("You are logged-in to the blog now");
                         Session session = request.session();
                         session.attribute("createUser", name);
+                    } else {
+                        System.out.println("Incorrect password associated with this account");
                     }
                     response.redirect("/");
                     return "";
@@ -55,9 +57,9 @@ public class Main {
                     Session session = request.session();
                     String name = session.attribute("createUser");
                     User user = usersMap.get(name);
-//                    if (user == null) {
-//                        throw new Exception("You fail at life");
-//                    }
+                    if (user == null) {
+                        throw new Exception("You fail at life");
+                    }
                     String addPost = request.queryParams("createMessage");
 
                     Messages createNewMessage = new Messages(addPost);
@@ -67,44 +69,39 @@ public class Main {
                     return "";
                 })
         );
-
-
-
         Spark.post(
                 "/delete-message",
                 ((request, response) -> {
                     Session session = request.session();
+                    String name = session.attribute("createUser");
+                    User user = usersMap.get(name);
 
                     String removePost = request.queryParams("deleteMessage");
 
-//                    messageList.remove(Integer.parseInt(removePost)-1);
+                    user.messageList.remove(Integer.parseInt(removePost)-1);
 
                     response.redirect("/");
                     return "";
                 })
         );
-
-
-
         Spark.post(
                 "/amend-message",
                 ((request, response) -> {
                     Session session = request.session();
+                    String name = session.attribute("createUser");
+                    User user = usersMap.get(name);
+
 
                     String amendPost = request.queryParams("amendPost");
                     String addPost = request.queryParams("createMessage");
 
-//                    messageList.remove(Integer.parseInt(amendPost)-1);
-//                    messageList.add(Integer.parseInt(amendPost)-1, new Messages(addPost));
+                    user.messageList.remove(Integer.parseInt(amendPost)-1);
+                    user.messageList.add(Integer.parseInt(amendPost)-1, new Messages(addPost));
 
                     response.redirect("/");
                     return "";
                 })
         );
-
-
-
-
         Spark.post(
                 "/logout",
                 ((request, response) -> {
